@@ -118,15 +118,25 @@ if username:
         # Retrieve the full analysis from Firestore
         doc_ref = db.collection("users").document(username).collection("videos").document(st.session_state.video_to_show)
         analysis = doc_ref.get().to_dict().get("analysis")
-        latex = doc_ref.get().to_dict().get("latex")
+        #have buttons for additional analysis
         st.write(analysis)
-        st.write(latex)
+
+        if st.button("Turn into PDF"):
+            latex_code = generate_latex_code(analysis)
+            doc_ref.update({"latex": latex_code})  # Update the correct document
+            st.write(latex_code)
+
+
     else:
         st.write("No videos uploaded yet")
 
     uploaded_file = st.file_uploader("Choose a video file", type=["mp4"])
 
     if uploaded_file is not None:
+        if "video_to_show" in st.session_state:
+            del st.session_state.video_to_show 
+            st.rerun()  # Rerun the app to go back to the main page
+
         # Display the uploaded video
         st.video(uploaded_file)
 
@@ -136,7 +146,10 @@ if username:
             # upload to firestore for the user -> video title -> analysis
             doc_ref = db.collection("users").document(username).collection("videos").document(uploaded_file.name)
             doc_ref.set({"analysis": analysis_result})
-            
+
+        doc_ref = db.collection("users").document(username).collection("videos").document(uploaded_file.name)
+        analysis = doc_ref.get().to_dict().get("analysis")
+        latex = doc_ref.get().to_dict().get("latex")
 
         # Display the analysis
         st.header("Analysis Results")
@@ -144,11 +157,3 @@ if username:
         #call from firestore
         doc = db.collection("users").document(username).get()
         st.write(doc.to_dict()["analysis"])
-
-        #have buttons for additional analysis
-        if st.button("Turn into PDF"):
-            analysis = doc.to_dict()["analysis"]
-            latex_code = generate_latex_code(analysis)
-            doc_ref.update({"latex": latex_code})
-            # print the latex code
-            st.write(latex_code)
