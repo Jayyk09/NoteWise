@@ -1,4 +1,4 @@
-# Notewise - AI-Powered Video Analysis with Gemini and Streamlit
+# Notewise
 
 Notewise is a Streamlit web application that leverages the power of Google's Gemini AI model to analyze educational videos and provide users with comprehensive lecture notes, summaries, and even LaTeX code for generating PDF documents.
 
@@ -6,8 +6,6 @@ Notewise is a Streamlit web application that leverages the power of Google's Gem
 
 - **Video Upload and Analysis:** Users can upload educational videos, which are then analyzed by the Gemini Pro 1.5 model to extract key information and generate lecture notes with timestamps.
 - **Interactive Summary:** The app provides a concise summary of the video content, allowing users to quickly grasp the main points.
-- **LaTeX Generation:** Users can generate LaTeX code from the analysis, enabling them to create professional PDF documents of their notes.
-- **Overleaf Integration:** The app provides a link to open the generated LaTeX code directly in Overleaf for further editing and PDF generation.
 - **Firebase Integration:** User data and analysis results are stored in Firebase for persistence and easy retrieval.
 
 ## How it Works
@@ -23,8 +21,6 @@ The latex code can be used to generate pdf using pdflatex or this can be pasted 
 - **Streamlit:** For building the interactive web application.
 - **Google Gemini:** For powerful AI video analysis and content generation.
 - **Firebase:** For user authentication, data storage, and backend management.
-- **pdflatex:** For generating PDF documents from LaTeX code.
-- **Overleaf:** For online LaTeX editing and PDF rendering.
 
 ## Getting Started
 
